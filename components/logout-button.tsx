@@ -1,8 +1,8 @@
 'use client';
 
 import { createClient } from '@/lib/supabase/client';
-import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { DropdownMenuItem } from './ui/dropdown-menu';
 
 export function LogoutButton() {
   const router = useRouter();
@@ -10,9 +10,8 @@ export function LogoutButton() {
   const logout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    // router.push('/'); This was originally came with supabase,replaced with refresh
     router.refresh();
   };
 
-  return <Button onClick={logout}>Log Out</Button>;
+  return <DropdownMenuItem onClick={() => logout()}>Log Out</DropdownMenuItem>; // Would be an DropDownItem inside ProfileMenu component
 }

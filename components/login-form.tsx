@@ -1,6 +1,3 @@
-// *******************************************************************************
-// ************ SUPABASE Oauth with Google + Github + Magic Link *****************
-// *******************************************************************************
 'use client';
 
 import { cn } from '@/lib/utils';
@@ -16,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
+// The LoginForm component lets users log in using Google, GitHub, or email
 export function LoginForm({
   className,
   ...props
@@ -25,8 +23,10 @@ export function LoginForm({
   const [email, setEmail] = useState('');
   const [linkSent, setLinkSent] = useState(false);
 
+  // Create a Supabase client (only works in browser)
   const supabase = createClient();
 
+  // 🔹 Handle Google or GitHub login
   const handleSocialLogin = async (provider: 'google' | 'github') => {
     setIsLoading(provider);
     setError(null);
@@ -44,6 +44,7 @@ export function LoginForm({
     }
   };
 
+  // 🔹 Handle Magic Link (Email) login
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading('magic');

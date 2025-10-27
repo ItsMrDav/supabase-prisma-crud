@@ -1,4 +1,3 @@
-// FLICKER PROFILE MENU UPDATA
 'use client';
 
 import {
@@ -9,10 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { CurrentUserAvatar } from '@/components/current-user-avatar';
-import { LogoutButton } from '@/components/logout-button';
-import type { User } from '@supabase/supabase-js';
+import { CurrentUserAvatar } from '@/components/current-user-avatar'; // show the user's avatar (picture or initials)
+import { LogoutButton } from '@/components/logout-button'; // button that signs out user
+import type { User } from '@supabase/supabase-js'; // import the "User" type so TypeScript knows what data looks like
 
+// This component shows the dropdown menu for the logged-in user
 export default function ProfileMenu({ user }: { user: User }) {
   return (
     <DropdownMenu>
@@ -26,10 +26,7 @@ export default function ProfileMenu({ user }: { user: User }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-52" sideOffset={8}>
-        <DropdownMenuLabel className="text-sm">
-          Signed in as
-          <div className="font-medium truncate">{user.email}</div>
-        </DropdownMenuLabel>
+        <DropdownMenuLabel className="text-sm">{user.email}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <LogoutButton />

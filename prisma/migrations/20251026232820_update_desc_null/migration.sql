@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Todo" ALTER COLUMN "desc" DROP NOT NULL;

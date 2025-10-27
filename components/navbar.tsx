@@ -1,28 +1,25 @@
-// ***********************************************************************************
-// ******************** MAKING LOGIN OPENS IN A MODAL ********************************
-// ***********************************************************************************
-// FLICKER PROFILE MENU UPDATA with using server wrapper = NavbarWrapper component
 'use client';
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Button } from '@/components/ui/button';
-import LoginModal from '@/components/login-modal';
-import type { User } from '@supabase/supabase-js';
-import ProfileMenu from '@/components/profile-menu';
 import Link from 'next/link';
+import type { User } from '@supabase/supabase-js';
+import ProfileMenu from '@/components/profile-menu'; // Shown if logged in
+import LoginModal from '@/components/login-modal'; // Shown if logged out
 
 export default function Navbar({ initialUser }: { initialUser: User | null }) {
   const supabase = createClient();
-  const [user, setUser] = useState<User | null>(initialUser);
-  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(initialUser); // State to track down current user
 
   useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange(() => {
-      supabase.auth.getUser().then(({ data }) => setUser(data?.user ?? null));
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      // When Auth state changes ->
+      supabase.auth.getUser().then(({ data }) => setUser(data?.user ?? null)); // Set up a new current user
     });
-    return () => listener.subscription.unsubscribe();
-  }, [supabase]);
+    return () => subscription.unsubscribe(); // Cleanup when component is removed by unsubscribing the user
+  }, [supabase]); // only run when supabase instance changes
 
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur">
@@ -32,15 +29,9 @@ export default function Navbar({ initialUser }: { initialUser: User | null }) {
         </Link>
 
         <div className="flex items-center gap-6">
-          {user ? (
-            <ProfileMenu user={user} />
-          ) : (
-            <Button onClick={() => setOpen(true)}>Log In</Button>
-          )}
+          {user ? <ProfileMenu user={user} /> : <LoginModal />}
         </div>
       </div>
-
-      <LoginModal open={open} onOpenChange={setOpen} />
     </nav>
   );
 }

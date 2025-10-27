@@ -2,25 +2,25 @@
 
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
-
 import { LoginForm } from '@/components/login-form';
+import { Button } from './ui/button';
 
-export default function LoginModal({
-  open,
-  onOpenChange,
-}: {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}) {
+export default function LoginModal() {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[400px]">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Log In</Button>
+      </DialogTrigger>
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle>Log In</DialogTitle>
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
         </DialogHeader>
         <LoginForm />
       </DialogContent>
