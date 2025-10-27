@@ -8,7 +8,7 @@ export default async function Home() {
   const myList = await retrieveTaskAction();
   return (
     <div className="container mx-auto py-8 px-16 flex flex-col justify-center items-center gap-4">
-      <div className="flex w-full justify-between items-center">
+      <div className="w-full max-w-xl flex justify-between items-center">
         <h1 className="text-xl font-bold">My List</h1>
         <NewListButton />
       </div>

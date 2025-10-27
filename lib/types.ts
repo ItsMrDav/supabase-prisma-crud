@@ -8,8 +8,6 @@ export const taskSchema = z.object({
   desc: z.string().max(200, 'Description too long').nullish(),
 });
 
-export type Task = z.infer<typeof taskSchema>;
-
 export interface ListViewType {
   id: number;
   title: string;
